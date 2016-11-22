@@ -1,0 +1,7 @@
+d 'MARKDOWN': a Stata module to convert Markdown syntax in coumpound double-string
+d to Stata Control and Markup Language (SMCL).
+d
+d Distribution-Date: 20161122
+d
+F markdown.ado
+F markdown.sthlp

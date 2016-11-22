@@ -20,9 +20,7 @@ github install haghish/markdown
 holds the SMCL markup code. 
 
 ```{js}
-markdown `"_italic_ and __bold__
-```
-``
+markdown `"_italic_ and __bold__"'
 markdown `"[Markdown Homepage](http://www.github.com/haghish/markdown)"'
 ```
 _italic_ and __bold__  

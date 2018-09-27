@@ -1,6 +1,6 @@
 /*** DO NOT EDIT THIS LINE -----------------------------------------------------
 Version: 1.0.0
-Title: markdown
+Title: md2smcl
 Description: a Stata module to convert Markdown syntax in coumpound double-string 
 to Stata Control and Markup Language (SMCL).
 ----------------------------------------------------- DO NOT EDIT THIS LINE ***/
@@ -11,47 +11,47 @@ Syntax
 ======
 
 {p 8 16 2}
-{cmd: markdown} {it:`"compound double-string"'} {p_end}
+{cmd: md2smcl} {it:`"compound double-string"'} {p_end}
 
 Description
 ===========
 
-The __markdown__ command was originally written for {help markdoc} package to 
+The __md2smcl__ command was originally written for {help markdoc} package to 
 generate Stata help files from Markdown code. However, it can be incorporated in 
 other user packages that deal with Markdown and SMCL. 
 
-The package [is hosted on GitHub](https://github.com/haghish/markdown), where 
+The package [is hosted on GitHub](https://github.com/haghish/md2smcl), where 
 you can read more about the package, see examples, and even contribute to the 
 package.  
 
-The __markdown__ command returns a _rclass_ macro named __r(md)__, which 
+The __md2smcl__ command returns a _rclass_ macro named __r(md)__, which 
 includes the SMCL code. 
 
 Example
 =================
 
-The examples below demonstrate how to use the __markdown__ command to style text 
+The examples below demonstrate how to use the __md2smcl__ command to style text 
 in SMCL. Moreover, the syntax for creating titles and hyperlinks is shown:
 	  
-        . markdown `"# Title"'
+        . md2smcl `"# Title"'
 	  {title:Title}
 	  
-        . markdown `"_italic_, __bold__, and ___underlined___ text"'
+        . md2smcl `"_italic_, __bold__, and ___underlined___ text"'
 	  {it:italic}, {bf:bold}, and {ul:underlined} text
 
-        . markdown `"[Markdown Homepage](http://www.github.com/haghish/markdown)"'
-	  {browse "http://www.github.com/haghish/markdown":Markdown Homepage}
+        . md2smcl `"[md2smcl Homepage](http://www.github.com/haghish/md2smcl)"'
+	  {browse "http://www.github.com/haghish/md2smcl":md2smcl Homepage}
 
-The __markdown__ engine can also be used to create a straight line or a tab. 
+The __md2smcl__ engine can also be used to create a straight line or a tab. 
 There are several alternatives for creating a straight line in Markdown but this 
 package only supports the "- - -" syntax. Combining "- - -" with a word or 
 sentence will result in a tab in SMCL. The latter is not Markdown syntax but is 
 made for Stata for further convenience. 
 
-        . markdown `"- - -"'
+        . md2smcl `"- - -"'
 - - -
 
-        . markdown `"- - -TabName"'
+        . md2smcl `"- - -TabName"'
 - - -TabName
 	
 Author
@@ -71,8 +71,8 @@ This help file was dynamically produced by
 [MarkDoc Literate Programming package](http://www.haghish.com/markdoc/) 
 ***/
 
-*cap prog drop markdown
-program define markdown, rclass
+*cap prog drop md2smcl
+program define md2smcl, rclass
 	
 	//DEFINE a functionality shift
 	//ENGINE1: smclmarkdown (limited functionalities)
@@ -273,4 +273,4 @@ program define markdown, rclass
 	
 end
 
-*markdoc markdown.ado, exp(sthlp) replace //build
+*markdoc md2smcl.ado, exp(sthlp) replace //build

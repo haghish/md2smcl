@@ -1,4 +1,4 @@
 v 1.0.0
 d 'MD2SMCL': a Stata module to convert Markdown syntax in coumpound double-string
 d to Stata Control and Markup Language (SMCL).
-p markdown
+p md2smcl

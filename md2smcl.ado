@@ -1,5 +1,5 @@
 /*** DO NOT EDIT THIS LINE -----------------------------------------------------
-Version: 1.0.0
+Version: 1.1
 Title: md2smcl
 Description: a Stata module to convert Markdown syntax in coumpound double-string 
 to Stata Control and Markup Language (SMCL).
@@ -124,48 +124,50 @@ program define md2smcl, rclass
 	
 	// Hyperlink
 	// -------------------------------------------------------------------------
-	if strpos(`"`macval(0)'"', "](") != 0 {
-		local a = strpos(`"`macval(0)'"', "](")
-		local 0 : subinstr local 0 "](" ""
-		local l1 = substr(`"`macval(0)'"',1,`a'-1) 
-		local l2 = substr(`"`macval(0)'"',`a',.) 
-		*di as err "l1>`l1'<"
-		*di as err "l2>`l2'<"
-		
-		// Extract the image syntax & link text
-		if strpos(`"`macval(l1)'"', "![") != 0 {
-			local a = strpos(`"`macval(l1)'"', "![")
-			local l1 : subinstr local l1 "![" " "
-			local text = substr(`"`macval(l1)'"',1,`a') 
-			local hypertext = substr(`"`macval(l1)'"',`a'+1,.) 
-			local image 1
-		}
-		
-		// Extract the hypertext syntax & link text
-		else if strpos(`"`macval(l1)'"', "[") != 0 {
-			local a = strpos(`"`macval(l1)'"', "[")
-			local l1 : subinstr local l1 "[" " "
-			local text = `trim'(substr(`"`macval(l1)'"',1,`a'))
-			local hypertext = `trim'(substr(`"`macval(l1)'"',`a'+1,.))
-			*di as err "text>`text'<"
-			*di as err "hypertext>`hypertext'<"
-		}
-		
-		//Extract the name
-		if strpos(`"`macval(l2)'"', ")") != 0 {
-			local a = strpos(`"`macval(l2)'"', ")")
-			local l2 : subinstr local l2 ")" ""
-			local link = substr(`"`macval(l2)'"',1,`a'-1) 
-			local rest = substr(`"`macval(l2)'"',`a',.) 
-			*di as err "link>`link'<"
-			*di as err "rest>`rest'<"
-		}
-		
-		if "`image'" != "1" {
-			local 0 : di `"`macval(text)'{browse "`macval(link)'":`macval(hypertext)'}`macval(rest)'"'
-		}
-		else {
-			local 0 : di `"`macval(text)'`macval(rest)'"'
+	forvalues i = 1/27 {
+		if strpos(`"`macval(0)'"', "](") != 0 {
+			local a = strpos(`"`macval(0)'"', "](")
+			local 0 : subinstr local 0 "](" ""
+			local l1 = substr(`"`macval(0)'"',1,`a'-1) 
+			local l2 = substr(`"`macval(0)'"',`a',.) 
+			*di as err "l1>`l1'<"
+			*di as err "l2>`l2'<"
+			
+			// Extract the image syntax & link text
+			if strpos(`"`macval(l1)'"', "![") != 0 {
+				local a = strpos(`"`macval(l1)'"', "![")
+				local l1 : subinstr local l1 "![" " "
+				local text = substr(`"`macval(l1)'"',1,`a') 
+				local hypertext = substr(`"`macval(l1)'"',`a'+1,.) 
+				local image 1
+			}
+			
+			// Extract the hypertext syntax & link text
+			else if strpos(`"`macval(l1)'"', "[") != 0 {
+				local a = strpos(`"`macval(l1)'"', "[")
+				local l1 : subinstr local l1 "[" " "
+				local text = `trim'(substr(`"`macval(l1)'"',1,`a'))
+				local hypertext = `trim'(substr(`"`macval(l1)'"',`a'+1,.))
+				*di as err "text>`text'<"
+				*di as err "hypertext>`hypertext'<"
+			}
+			
+			//Extract the name
+			if strpos(`"`macval(l2)'"', ")") != 0 {
+				local a = strpos(`"`macval(l2)'"', ")")
+				local l2 : subinstr local l2 ")" ""
+				local link = substr(`"`macval(l2)'"',1,`a'-1) 
+				local rest = substr(`"`macval(l2)'"',`a',.) 
+				*di as err "link>`link'<"
+				*di as err "rest>`rest'<"
+			}
+			
+			if "`image'" != "1" {
+				local 0 : di `"`macval(text)'{browse "`macval(link)'":`macval(hypertext)'}`macval(rest)'"'
+			}
+			else {
+				local 0 : di `"`macval(text)'`macval(rest)'"'
+			}
 		}
 	}
 	
@@ -202,6 +204,7 @@ program define md2smcl, rclass
 	
 	forvalues i = 1/27 {
 		local 0 : subinstr local 0 " __" " {bf:"
+		local 0 : subinstr local 0 "=__" "={bf:"
 		local 0 : subinstr local 0 "__ " "} "
 	
 	}		
@@ -217,11 +220,14 @@ program define md2smcl, rclass
 	}	
 	forvalues i = 1/27 {
 		local 0 : subinstr local 0 " _" " {it:"
+		local 0 : subinstr local 0 "=_" "={it:"
 		local 0 : subinstr local 0 "(_" "({it:"
+		local 0 : subinstr local 0 "[_" "[{it:"
 		local 0 : subinstr local 0 "_ " "} "
 	}
 	forvalues i = 1/27 {
 		local 0 : subinstr local 0 "_)" "})"
+		local 0 : subinstr local 0 "_]" "}]"
 		local 0 : subinstr local 0 "_." "}."
 		local 0 : subinstr local 0 "_!" "}!"
 		local 0 : subinstr local 0 "_?" "}?"
@@ -248,7 +254,20 @@ program define md2smcl, rclass
 		local 0 : subinstr local 0 "#### " ""
 		local 0  "{title:`0'}"
 	}
+	
+	// process the last character of the line
+	// -------------------------------------------------------------------------
+	if substr(`trim'(`"`macval(0)'"'),-3,.) == "___" {
+		local 0 : subinstr local 0 "___" "}"
+	}
+	if substr(`trim'(`"`macval(0)'"'),-2,.) == "__" {
+		local 0 : subinstr local 0 "__" "}"
+	}
+	if substr(`trim'(`"`macval(0)'"'),-1,.) == "_" {
+		local 0 : subinstr local 0 "_" "}"
+	}
 
+	*substr("abcdef",-3,.) = "def"
 	
 	
 	// Create Markdown Horizontal line
@@ -259,11 +278,13 @@ program define md2smcl, rclass
 	
 	// Create SMCL Tab
 	// -------------------------------------------------------------------------
+	/*
 	if `trim'(`"`macval(0)'"') != "- - -" &										///
 	substr(`trim'(`"`macval(0)'"'),1,5) == "- - -" {
 		local 0 : subinstr local 0 "- - -" "{dlgtab:" 
 		local 0 = `"`macval(0)' "' + "}"
 	}
+	*/
 						
 	
 	display as txt `"`macval(0)'"'

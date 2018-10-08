@@ -45,17 +45,12 @@ in SMCL. Moreover, the syntax for creating titles and hyperlinks is shown:
 	  {browse "http://www.github.com/haghish/md2smcl":md2smcl Homepage}
 
 {p 4 4 2}
-The {bf:md2smcl} engine can also be used to create a straight line or a tab. 
+The {bf:md2smcl} engine can also be used to create a straight line. 
 There are several alternatives for creating a straight line in Markdown but this 
-package only supports the "- - -" syntax. Combining "- - -" with a word or 
-sentence will result in a tab in SMCL. The latter is not Markdown syntax but is 
-made for Stata for further convenience. 
+package only supports the "- - -" syntax. 
 
         . md2smcl `"- - -"'
     {hline}
-
-        . md2smcl `"- - -TabName"'
-{dlgtab:TabName }
 	
 
 {title:Author}

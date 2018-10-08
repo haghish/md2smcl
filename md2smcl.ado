@@ -185,8 +185,8 @@ program define md2smcl, rclass
 	*}
 	
 	forvalues i = 1/27 {
-		local 0 : subinstr local 0 "___" "{ul:"
-		local 0 : subinstr local 0 "___" "}"
+		local 0 : subinstr local 0 "***" "{ul:"
+		local 0 : subinstr local 0 "***" "}"
 	}
 	
 	if substr(`trim'(`"`macval(0)'"'),1,2) == "__" & 							///
@@ -283,6 +283,15 @@ program define md2smcl, rclass
 	substr(`trim'(`"`macval(0)'"'),1,5) == "- - -" {
 		local 0 : subinstr local 0 "- - -" "{dlgtab:" 
 		local 0 = `"`macval(0)' "' + "}"
+	}
+	*/
+	
+	
+	// AT LAST
+	// =========================================================================
+	/*forvalues i = 1/10 {
+		local 0 : subinstr local 0 "__" " {bf:"
+		local 0 : subinstr local 0 "__" "}"
 	}
 	*/
 						

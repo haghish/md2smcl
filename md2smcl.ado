@@ -311,11 +311,20 @@ program define md2smcl, rclass
 	
 	// Add list
 	// -------------------------------------------------------------------------
-	if substr(`trim'(`"`macval(0)'"'),1,2) == "- " | substr(`trim'(`"`macval(0)'"'),1,2) == "* " |  ///
-	   substr(`trim'(`"`macval(0)'"'),1,2) == " -" | substr(`trim'(`"`macval(0)'"'),1,2) == " *" |  ///
-	   substr(`trim'(`"`macval(0)'"'),1,3) == "  -" | substr(`trim'(`"`macval(0)'"'),1,3) == "  *" {
+	if substr(`trim'(`"`macval(0)'"'),1,1) == "-" |           ///
+	   substr(`trim'(`"`macval(0)'"'),1,1) == "+" |           ///
+		 substr(`trim'(`"`macval(0)'"'),1,1) == "*" {
+		local n 16
+		forvalues i = 1/16 {
+			local trailspace : display _dup(`n') " "
+			if substr(`"`macval(0)'"',1,`n') == "`trailspace'" {
+				local 0 : subinstr local 0 "`trailspace'" "{space `n'}"
+			}
+			local n = `n'-1
+		}
 		local 0 `"{break}`macval(0)'"'
 	}
+
 	
 	// Add numbered list (NEEDS CORRECTION)
 	// -------------------------------------------------------------------------
@@ -326,6 +335,23 @@ program define md2smcl, rclass
 	   substr(`trim'(`"`macval(0)'"'),1,1) == "9"  {
 		local 0 `"{break}`macval(0)'"'
 	}
+	
+	// preserve trail white space securely
+	// -------------------------------------------------------
+	local n 16
+	forvalues i = 1/16 {
+	  local trailspace : display _dup(`n') " "
+		if substr(`"`macval(0)'"',1,`n') == "`trailspace'" {
+		  local 0 : subinstr local 0 "`trailspace'" "{space `n'}"
+		}
+		local n = `n'-1
+	}
+
+	
+	
+	
+	
+	
 	
 	// Create SMCL Tab
 	// -------------------------------------------------------------------------

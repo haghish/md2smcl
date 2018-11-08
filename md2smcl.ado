@@ -102,23 +102,17 @@ program define md2smcl, rclass
 
 	
 	// quote and doublequote (NEEDS CORRECTION)
-	// -------------------------------------------------------------------------	
-	/*
-	if substr(`trim'(`"`macval(0)'"'),1,7) == "> > > >" {
-		local 0 : subinstr local 0 "> > > >" "{break}{p 32}"
-	}
-	*/
-	
+	// -------------------------------------------------------------------------		
 	if substr(`trim'(`"`macval(0)'"'),1,5) == "> > >" {
-		local 0 : subinstr local 0 "> > >" "{p 24}"
+		local 0 : subinstr local 0 "> > >" "{p 24 24 2}"
 	}
 	
 	if substr(`trim'(`"`macval(0)'"'),1,3) == "> >" {
-		local 0 : subinstr local 0 "> >" "{p 16}"
+		local 0 : subinstr local 0 "> >" "{p 16 16 2}"
 	}
 	
 	if substr(`trim'(`"`macval(0)'"'),1,1) == ">" {
-		local 0 : subinstr local 0 ">" "{p 8}"
+		local 0 : subinstr local 0 ">" "{p 8 8 2}"
 	}
 	
 	

@@ -98,6 +98,47 @@ program define md2smcl, rclass
 		local 0 = substr(`"`macval(0)'"', 3,`length'-4)
 	}
 	
+	//fixing grave accent (NEEDS DEVELOPMENT)
+
+	
+	// quote and doublequote (NEEDS CORRECTION)
+	// -------------------------------------------------------------------------	
+	/*
+	if substr(`trim'(`"`macval(0)'"'),1,7) == "> > > >" {
+		local 0 : subinstr local 0 "> > > >" "{break}{p 32}"
+	}
+	*/
+	
+	if substr(`trim'(`"`macval(0)'"'),1,5) == "> > >" {
+		local 0 : subinstr local 0 "> > >" "{p 24}"
+	}
+	
+	if substr(`trim'(`"`macval(0)'"'),1,3) == "> >" {
+		local 0 : subinstr local 0 "> >" "{p 16}"
+	}
+	
+	if substr(`trim'(`"`macval(0)'"'),1,1) == ">" {
+		local 0 : subinstr local 0 ">" "{p 8}"
+	}
+	
+	
+	// Create Markdown Horizontal line
+	// -------------------------------------------------------------------------
+	if `trim'(`"`macval(0)'"') == "- - - -" {
+		local 0 : subinstr local 0 "- - - -"  "    {hline}" 
+	}
+	if `trim'(`"`macval(0)'"') == "- - -" {
+		local 0 : subinstr local 0 "- - -"  "    {hline}" 
+	}
+	if `trim'(`"`macval(0)'"') == "---" {
+		local 0 : subinstr local 0 "---"  "{hline}" 
+	}
+	if `trim'(`"`macval(0)'"') == "* * *" {
+		local 0 : subinstr local 0 "* * *"  "{hline}" 
+	}
+	
+	
+	
 	// Add Line Break
 	// -------------------------------------------------------------------------
 	if substr(`"`macval(0)'"', -2,.) == "  " {
@@ -270,10 +311,26 @@ program define md2smcl, rclass
 	*substr("abcdef",-3,.) = "def"
 	
 	
-	// Create Markdown Horizontal line
+	
+	
+	
+	
+	// Add list
 	// -------------------------------------------------------------------------
-	if `trim'(`"`macval(0)'"') == "- - -" {
-		local 0 : subinstr local 0 "- - -"  "    {hline}" 
+	if substr(`trim'(`"`macval(0)'"'),1,2) == "- " | substr(`trim'(`"`macval(0)'"'),1,2) == "* " |  ///
+	   substr(`trim'(`"`macval(0)'"'),1,2) == " -" | substr(`trim'(`"`macval(0)'"'),1,2) == " *" |  ///
+	   substr(`trim'(`"`macval(0)'"'),1,3) == "  -" | substr(`trim'(`"`macval(0)'"'),1,3) == "  *" {
+		local 0 `"{break}`macval(0)'"'
+	}
+	
+	// Add numbered list (NEEDS CORRECTION)
+	// -------------------------------------------------------------------------
+	if substr(`trim'(`"`macval(0)'"'),1,1) == "1" | substr(`trim'(`"`macval(0)'"'),1,1) == "2" |  ///
+	   substr(`trim'(`"`macval(0)'"'),1,1) == "3" | substr(`trim'(`"`macval(0)'"'),1,1) == "4" |  ///
+	   substr(`trim'(`"`macval(0)'"'),1,1) == "5" | substr(`trim'(`"`macval(0)'"'),1,1) == "6" |  ///
+	   substr(`trim'(`"`macval(0)'"'),1,1) == "7" | substr(`trim'(`"`macval(0)'"'),1,1) == "8" |  /// 
+	   substr(`trim'(`"`macval(0)'"'),1,1) == "9"  {
+		local 0 `"{break}`macval(0)'"'
 	}
 	
 	// Create SMCL Tab

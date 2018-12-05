@@ -27,8 +27,11 @@ holds the SMCL markup code.
 md2smcl `"_italic_ and __bold__"'
 md2smcl `"[md2smcl Homepage](http://www.github.com/haghish/md2smcl)"'
 ```
-_italic_ and __bold__  
-[md2smcl Homepage](http://www.github.com/haghish/md2smcl)
+
+the results would be:
+
+> _italic_ and __bold__  
+> [md2smcl Homepage](http://www.github.com/haghish/md2smcl)
 
 Author
 ------

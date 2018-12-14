@@ -14,6 +14,11 @@ since Stata 15 introduces a command with the same name, the command is renamed t
 If you have [GitHub package](http://github.com/haghish/package) installed, simply type:
 
 ```{js}
+gitget md2smcl
+```
+_or using the old syntax_
+
+```{js}
 github install haghish/md2smcl
 ```
 

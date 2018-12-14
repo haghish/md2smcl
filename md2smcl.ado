@@ -220,8 +220,8 @@ program define md2smcl, rclass
 	*}
 	
 	forvalues i = 1/27 {
-		local 0 : subinstr local 0 "***" "{ul:"
-		local 0 : subinstr local 0 "***" "}"
+		local 0 : subinstr local 0 "**" "{ul:"
+		local 0 : subinstr local 0 "**" "}"
 	}
 	
 	if substr(`trim'(`"`macval(0)'"'),1,2) == "__" & 							///
@@ -255,6 +255,8 @@ program define md2smcl, rclass
 	}	
 	forvalues i = 1/27 {
 		local 0 : subinstr local 0 " _" " {it:"
+		local 0 : subinstr local 0 "|__" "|{bf:"
+		local 0 : subinstr local 0 "|_" "|{it:"
 		local 0 : subinstr local 0 "=_" "={it:"
 		local 0 : subinstr local 0 "(_" "({it:"
 		local 0 : subinstr local 0 "[_" "[{it:"
@@ -283,11 +285,13 @@ program define md2smcl, rclass
 	}
 	else if substr(`trim'(`"`macval(0)'"'),1,4) == "### " {
 		local 0 : subinstr local 0 "### " ""
-		local 0  "{title:`0'}"
+		//local 0  "{title:`0'}"
+		local 0  "{p 4 4 2}{bf:`0'}" 
 	}
 	else if substr(`trim'(`"`macval(0)'"'),1,5) == "#### " {
 		local 0 : subinstr local 0 "#### " ""
-		local 0  "{title:`0'}"
+		//local 0  "{title:`0'}"
+		local 0  "{p 4 4 2}{it:`0'}" 
 	}
 	
 	// process the last character of the line

@@ -326,7 +326,7 @@ program define md2smcl, rclass
 			}
 			local n = `n'-1
 		}
-		local 0 `"{break}`macval(0)'"'
+		local 0 `"{break}    `macval(0)'"'
 	}
 
 	
@@ -337,7 +337,7 @@ program define md2smcl, rclass
 	   substr(`trim'(`"`macval(0)'"'),1,1) == "5" | substr(`trim'(`"`macval(0)'"'),1,1) == "6" |  ///
 	   substr(`trim'(`"`macval(0)'"'),1,1) == "7" | substr(`trim'(`"`macval(0)'"'),1,1) == "8" |  /// 
 	   substr(`trim'(`"`macval(0)'"'),1,1) == "9"  {
-		local 0 `"{break}`macval(0)'"'
+		local 0 `"{break}    `macval(0)'"'
 	}
 	
 	// preserve trail white space securely

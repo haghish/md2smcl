@@ -1,5 +1,5 @@
 /*** DO NOT EDIT THIS LINE -----------------------------------------------------
-Version: 1.1
+Version: 1.4
 Title: md2smcl
 Description: a Stata module to convert Markdown syntax in coumpound double-string 
 to Stata Control and Markup Language (SMCL).

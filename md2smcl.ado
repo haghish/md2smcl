@@ -1,5 +1,5 @@
 /*** DO NOT EDIT THIS LINE -----------------------------------------------------
-Version: 1.4
+Version: 1.5
 Title: md2smcl
 Description: a Stata module to convert Markdown syntax in coumpound double-string 
 to Stata Control and Markup Language (SMCL).
@@ -187,6 +187,10 @@ program define md2smcl, rclass
 				*di as err "hypertext>`hypertext'<"
 			}
 			
+			// interpret the hypertext
+			capture md2smcl `"`hypertext'"'
+			if _rc == 0 local hypertext `r(md)'
+			
 			//Extract the name
 			if strpos(`"`macval(l2)'"', ")") != 0 {
 				local a = strpos(`"`macval(l2)'"', ")")
@@ -240,6 +244,7 @@ program define md2smcl, rclass
 	forvalues i = 1/27 {
 		local 0 : subinstr local 0 " __" " {bf:"
 		local 0 : subinstr local 0 "=__" "={bf:"
+		local 0 : subinstr local 0 "[__" "[{bf:"
 		local 0 : subinstr local 0 "__ " "} "
 	
 	}		
@@ -252,6 +257,7 @@ program define md2smcl, rclass
 		local 0 : subinstr local 0 "__:" "}:"
 		local 0 : subinstr local 0 "__!" "}!"
 		local 0 : subinstr local 0 "__?" "}?"
+		local 0 : subinstr local 0 "__]" "}]"
 	}	
 	forvalues i = 1/27 {
 		local 0 : subinstr local 0 " _" " {it:"

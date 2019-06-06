@@ -1,17 +1,17 @@
-/*** DO NOT EDIT THIS LINE -----------------------------------------------------
-Version: 1.5
-Title: md2smcl
-Description: a Stata module to convert Markdown syntax in coumpound double-string 
-to Stata Control and Markup Language (SMCL).
------------------------------------------------------ DO NOT EDIT THIS LINE ***/
-
 
 /***
+_V 1.5_
+
+md2smcl
+=======
+
+a Stata module to convert Markdown syntax in coumpound double-string 
+to Stata Control and Markup Language (SMCL).
+
 Syntax
 ======
 
-{p 8 16 2}
-{cmd: md2smcl} {it:`"compound double-string"'} {p_end}
+> __md2smcl__ _`"compound double-string"'_
 
 Description
 ===========
@@ -32,15 +32,10 @@ Example
 
 The examples below demonstrate how to use the __md2smcl__ command to style text 
 in SMCL. Moreover, the syntax for creating titles and hyperlinks is shown:
-	  
-        . md2smcl `"# Title"'
-	  {title:Title}
-	  
-        . md2smcl `"_italic_, __bold__, and ___underlined___ text"'
-	  {it:italic}, {bf:bold}, and {ul:underlined} text
 
+        . md2smcl `"# Title"'
+        . md2smcl `"_italic_, __bold__, and ___underlined___ text"'
         . md2smcl `"[md2smcl Homepage](http://www.github.com/haghish/md2smcl)"'
-	  {browse "http://www.github.com/haghish/md2smcl":md2smcl Homepage}
 
 The __md2smcl__ engine can also be used to create a straight line or a tab. 
 There are several alternatives for creating a straight line in Markdown but this 
@@ -49,11 +44,7 @@ sentence will result in a tab in SMCL. The latter is not Markdown syntax but is
 made for Stata for further convenience. 
 
         . md2smcl `"- - -"'
-- - -
 
-        . md2smcl `"- - -TabName"'
-- - -TabName
-	
 Author
 ======
 

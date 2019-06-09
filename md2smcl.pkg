@@ -1,10 +1,8 @@
 v 1.5
 d 'MD2SMCL': a Stata module to convert Markdown syntax in coumpound double-string
 d 
-d Distribution-Date:   20190606
+d Distribution-Date:   20190609
 d License: MIT
 d 
-F datadoc.ado
-F datadoc.sthlp
 F md2smcl.ado
 F md2smcl.sthlp

@@ -50,8 +50,6 @@ made for Stata for further convenience.
 
         . md2smcl `"- - -"'
 
-        . md2smcl `"- - -TabName"'
-
 
 {title:Author}
 

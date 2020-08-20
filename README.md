@@ -11,7 +11,7 @@ since Stata 15 introduces a command with the same name, the command is renamed t
 
 ### Installation
 
-If you have [GitHub package](http://github.com/haghish/package) installed, simply type:
+If you have [GitHub package](http://github.com/haghish/github) installed, simply type:
 
 ```{js}
 gitget md2smcl
